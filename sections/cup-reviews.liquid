@@ -1,0 +1,59 @@
+{% if section.blocks.size > 0 or request.design_mode %}<section class="section review-section"><div class="wrap"><div class="section-heading"><h2>{{ section.settings.heading | escape }}</h2><div class="rte">{{ section.settings.text }}</div></div>{% if section.blocks.size == 0 and request.design_mode %}<p class="editor-message">Add verified reviews or a review app block in the theme editor.</p>{% endif %}<div class="review-grid">{% for block in section.blocks %}{% case block.type %}{% when 'review' %}<article class="review-card" {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '300, 600', sizes: '(min-width: 750px) 25vw, 80vw' }}{% endif %}<h3>{{ block.settings.name | escape }}</h3><p class="stars" aria-label="{{ block.settings.stars }} out of 5 stars">{% for i in (1..5) %}{% if i <= block.settings.stars %}★{% else %}☆{% endif %}{% endfor %}</p><p>{{ block.settings.text | escape }}</p></article>{% when '@app' %}<div class="review-app">{% render block %}</div>{% endcase %}{% endfor %}</div></div></section>{% endif %}
+{% schema %}
+{
+  "name": "Customer reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Drivers love their calmer commutes"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Introduction"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Verified review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Customer image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Customer name"
+        },
+        {
+          "type": "range",
+          "id": "stars",
+          "label": "Stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Verified review text"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer reviews"
+    }
+  ]
+}
+{% endschema %}

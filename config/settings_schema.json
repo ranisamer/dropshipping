@@ -1,0 +1,54 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Secure Cup",
+    "theme_version": "1.0.0",
+    "theme_author": "Custom Shopify theme",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Colors and layout",
+    "settings": [
+      {
+        "type": "color",
+        "id": "forest",
+        "label": "Forest green",
+        "default": "#1e3c20"
+      },
+      {
+        "type": "color",
+        "id": "cream",
+        "label": "Soft cream",
+        "default": "#f6f7eb"
+      },
+      {
+        "type": "color",
+        "id": "accent",
+        "label": "Accent",
+        "default": "#e6edc7"
+      },
+      {
+        "type": "color",
+        "id": "ink",
+        "label": "Text",
+        "default": "#243425"
+      },
+      {
+        "type": "range",
+        "id": "content_width",
+        "label": "Content width",
+        "min": 900,
+        "max": 1400,
+        "step": 20,
+        "unit": "px",
+        "default": 1120
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  }
+]

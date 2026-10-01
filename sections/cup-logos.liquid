@@ -1,0 +1,36 @@
+{% if section.blocks.size > 0 %}<section class="logo-band"><div class="wrap">{% if section.settings.heading != blank %}<p>{{ section.settings.heading | escape }}</p>{% endif %}<div class="logo-list">{% for block in section.blocks %}<div {{ block.shopify_attributes }}>{% if block.settings.image != blank %}{{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', widths: '150, 300', sizes: '150px' }}{% else %}<span>{{ block.settings.name | escape }}</span>{% endif %}</div>{% endfor %}</div></div></section>{% endif %}
+{% schema %}
+{
+  "name": "Authorized logos",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Authorized logo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Authorized logos"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,63 @@
+<section class="section dark benefits {% if section.settings.angle %}angled{% endif %}"><div class="wrap"><div class="section-heading"><h2>{{ section.settings.heading | escape }}</h2><div class="rte">{{ section.settings.text }}</div></div><div class="benefit-panel"><div class="benefit-photo">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(min-width: 750px) 50vw, 100vw' }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}{% endif %}</div><div class="benefit-grid">{% for block in section.blocks %}<div class="benefit-item" {{ block.shopify_attributes }}><span class="benefit-icon" aria-hidden="true">{{ block.settings.icon | escape }}</span><h3>{{ block.settings.heading | escape }}</h3><p>{{ block.settings.text | escape }}</p></div>{% endfor %}</div></div></div></section>
+{% schema %}
+{
+  "name": "Benefits panel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Keep your favorite morning coffee secure during every commute"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Introduction",
+      "default": "<p>A little more comfort for the road ahead.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Lifestyle image"
+    },
+    {
+      "type": "checkbox",
+      "id": "angle",
+      "label": "Angled top",
+      "default": true
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Symbol",
+          "default": "\u2713"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Easy access"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Keep your drink within reach."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefits panel"
+    }
+  ]
+}
+{% endschema %}

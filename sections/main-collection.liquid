@@ -1,0 +1,7 @@
+<section class="section wrap"><h1>{{ collection.title | escape }}</h1><div class="rte">{{ collection.description }}</div>{% paginate collection.products by 24 %}<div class="product-cards">{% for card_product in collection.products %}{% render 'product-card', card_product: card_product %}{% else %}<p>{{ 'general.empty' | t }}</p>{% endfor %}</div>{{ paginate | default_pagination }}{% endpaginate %}</section>
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

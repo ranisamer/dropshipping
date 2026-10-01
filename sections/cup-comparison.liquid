@@ -1,0 +1,74 @@
+<section class="section"><div class="wrap split"><div class="section-copy"><h2>{{ section.settings.heading | escape }}</h2><div class="rte">{{ section.settings.text }}</div>{% if section.settings.cta != blank %}<a class="button" href="{{ section.settings.link | default: '#MainContent' }}">{{ section.settings.cta | escape }}</a>{% endif %}{% render 'payment-icons' %}</div><div class="table-scroll"><table class="comparison"><caption class="visually-hidden">{{ section.settings.heading | escape }}</caption><thead><tr><th scope="col">Feature</th><th scope="col" class="ours">{{ section.settings.ours | escape }}</th><th scope="col">{{ section.settings.others | escape }}</th></tr></thead><tbody>{% for block in section.blocks %}<tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.feature | escape }}</th><td class="ours">{{ block.settings.ours | escape }}</td><td>{{ block.settings.others | escape }}</td></tr>{% endfor %}</tbody></table></div></div></section>
+{% schema %}
+{
+  "name": "Comparison",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why choose our cup holder?"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Introduction",
+      "default": "<p>Compare the details that matter to your everyday drive.</p>"
+    },
+    {
+      "type": "text",
+      "id": "ours",
+      "label": "Your column",
+      "default": "Our holder"
+    },
+    {
+      "type": "text",
+      "id": "others",
+      "label": "Comparison column",
+      "default": "Other options"
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button label",
+      "default": "Choose yours"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Comparison row",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature",
+          "label": "Feature",
+          "default": "Foldable"
+        },
+        {
+          "type": "text",
+          "id": "ours",
+          "label": "Your product",
+          "default": "\u2713"
+        },
+        {
+          "type": "text",
+          "id": "others",
+          "label": "Other product",
+          "default": "\u2014"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison"
+    }
+  ]
+}
+{% endschema %}

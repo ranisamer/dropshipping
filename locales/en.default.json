@@ -1,0 +1,44 @@
+{
+  "general": {
+    "skip": "Skip to content",
+    "close": "Close",
+    "cart": "Cart",
+    "home": "Home",
+    "search": "Search",
+    "empty": "No products found."
+  },
+  "product": {
+    "add": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quantity": "Quantity",
+    "variant": "Choose an option",
+    "select": "Select a product in the theme editor",
+    "added": "Added to your cart.",
+    "error": "Could not add this item. Please try again.",
+    "adding": "Adding\u2026",
+    "choose": "Choose options",
+    "previous": "Previous image",
+    "next": "Next image"
+  },
+  "cart": {
+    "view": "View cart",
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "continue": "Continue shopping",
+    "update": "Update cart",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal",
+    "note": "Order notes",
+    "taxes": "Taxes, discounts and shipping calculated at checkout.",
+    "remove": "Remove"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search products",
+    "button": "Search"
+  },
+  "footer": {
+    "powered": "Powered by Shopify"
+  }
+}

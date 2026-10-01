@@ -1,0 +1,31 @@
+{% if section.settings.announcement != blank %}<div class="announcement">{{ section.settings.announcement | escape }}</div>{% endif %}
+<header class="header wrap"><a class="brand" href="{{ routes.root_url }}">{% if section.settings.logo != blank %}{{ section.settings.logo | image_url: width: 360 | image_tag: widths: '180, 360', sizes: '180px', loading: 'eager' }}{% else %}{{ section.settings.brand | default: shop.name | escape }}{% endif %}</a>
+<nav aria-label="Main navigation">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}<a href="{{ routes.cart_url }}">{{ 'general.cart' | t }} (<span data-cart-count>{{ cart.item_count }}</span>)</a></nav></header>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement"
+    },
+    {
+      "type": "text",
+      "id": "brand",
+      "label": "Brand name",
+      "default": "Secure Cup"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}

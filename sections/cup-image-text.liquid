@@ -1,0 +1,72 @@
+<section class="section image-text {% if section.settings.dark %}dark{% endif %}"><div class="wrap split {% if section.settings.reverse %}reverse{% endif %}"><div class="section-image">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(min-width: 750px) 50vw, 100vw' }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}{% endif %}</div><div class="section-copy"><h2>{{ section.settings.heading | escape }}</h2><div class="rte">{{ section.settings.text }}</div>{% for block in section.blocks %}<details class="accordion" {{ block.shopify_attributes }}><summary>{{ block.settings.heading | escape }}<span aria-hidden="true">+</span></summary><div class="rte">{{ block.settings.text }}</div></details>{% endfor %}{% if section.settings.cta != blank %}<a class="button {% if section.settings.dark %}light{% endif %}" href="{{ section.settings.link | default: '#MainContent' }}">{{ section.settings.cta | escape }}</a>{% endif %}</div></div></section>
+{% schema %}
+{
+  "name": "Image and story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Secure your coffee every morning."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Make room for your favorite daily ritual with a practical, foldable cup holder.</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "dark",
+      "label": "Green background",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "reverse",
+      "label": "Image on right",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "cta",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Easy to fold"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Content",
+          "default": "<p>Add your verified product details here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image and story"
+    }
+  ]
+}
+{% endschema %}

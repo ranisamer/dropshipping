@@ -1,0 +1,56 @@
+<section class="section dark results"><div class="wrap"><h2 class="center">{{ section.settings.heading | escape }}</h2><div class="split"><div class="stats-grid">{% for block in section.blocks %}<div class="stat" {{ block.shopify_attributes }}><div class="stat-value">{{ block.settings.value | escape }}</div><h3>{{ block.settings.label | escape }}</h3><p>{{ block.settings.text | escape }}</p></div>{% endfor %}</div><div class="section-image">{% if section.settings.image != blank %}{{ section.settings.image | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '400, 700, 1000, 1400', sizes: '(min-width: 750px) 50vw, 100vw' }}{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}{% endif %}</div></div>{% if section.settings.note != blank %}<p class="microcopy center">{{ section.settings.note | escape }}</p>{% endif %}</div></section>
+{% schema %}
+{
+  "name": "Product facts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Made for everyday journeys"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Dimensions or detail image"
+    },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Source or measurement note"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Fact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Value or symbol",
+          "default": "\u2713"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Foldable design"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Add a verified product fact."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product facts"
+    }
+  ]
+}
+{% endschema %}

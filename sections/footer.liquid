@@ -1,0 +1,13 @@
+<footer class="footer"><div class="wrap footer-inner"><span>© {{ 'now' | date: '%Y' }} {{ shop.name | escape }}</span><nav aria-label="Footer navigation">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}{% for policy in shop.policies %}{% if policy != blank %}<a href="{{ policy.url }}">{{ policy.title | escape }}</a>{% endif %}{% endfor %}</nav><small>{{ powered_by_link }}</small></div></footer>
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,139 @@
+{% liquid
+ assign chosen = section.settings.product
+ if product != blank
+  assign chosen = product
+ endif
+ assign variant = chosen.selected_or_first_available_variant
+ assign form_id = 'ProductForm-' | append: section.id
+%}
+<section class="product-section wrap" id="product-{{ section.id }}" data-product-root data-section-id="{{ section.id }}" data-add-label="{{ 'product.add' | t }}" data-sold-label="{{ 'product.sold_out' | t }}" data-unavailable-label="{{ 'product.unavailable' | t }}" data-added-label="{{ 'product.added' | t }}" data-adding-label="{{ 'product.adding' | t }}" data-error-label="{{ 'product.error' | t }}">
+<div class="product-grid"><div class="gallery" data-gallery>
+<div class="gallery-main">
+{% if chosen.media.size > 0 %}{% for media in chosen.media %}<div class="gallery-slide" data-media-id="{{ media.id }}" {% unless media.id == variant.featured_media.id or variant.featured_media == blank and forloop.first %}hidden{% endunless %}>
+{% case media.media_type %}{% when 'image' %}{{ media | image_url: width: 1600 | image_tag: widths: '400, 700, 1000, 1600', sizes: '(min-width: 750px) 50vw, 100vw', loading: 'eager' }}{% when 'video' %}{{ media | video_tag: controls: true, preload: 'metadata', image_size: '1000x' }}{% when 'external_video' %}{{ media | external_video_tag }}{% when 'model' %}{{ media.preview_image | image_url: width: 1000 | image_tag: loading: 'lazy' }}{% endcase %}</div>{% endfor %}
+{% else %}{{ 'product-1' | placeholder_svg_tag: 'placeholder' }}{% endif %}</div>
+{% if chosen.media.size > 1 %}<div class="gallery-thumbs">{% for media in chosen.media %}<button class="thumbnail" type="button" data-media-target="{{ media.id }}" aria-label="{{ media.alt | default: chosen.title | escape }} — {{ forloop.index }}" aria-pressed="{% if media.id == variant.featured_media.id or variant.featured_media == blank and forloop.first %}true{% else %}false{% endif %}">{{ media.preview_image | image_url: width: 180 | image_tag: loading: 'lazy', widths: '90, 180', sizes: '80px' }}</button>{% endfor %}</div>{% endif %}
+</div><div class="product-info">
+{% if section.settings.rating_text != blank %}<p class="rating-text">{{ section.settings.rating_text | escape }}</p>{% endif %}
+<h1>{{ chosen.title | default: section.settings.fallback_title | escape }}</h1>
+{% if section.settings.badge != blank %}<span class="badge">{{ section.settings.badge | escape }}</span>{% endif %}
+{% if chosen != blank %}<div class="price-row"><strong data-price>{{ variant.price | money }}</strong><s data-compare {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>{{ variant.compare_at_price | money }}</s><span class="badge" data-sale {% unless variant.compare_at_price > variant.price %}hidden{% endunless %}>Sale</span></div>{% endif %}
+{% if section.settings.intro != blank %}<div class="rte intro">{{ section.settings.intro }}</div>{% endif %}
+<ul class="product-benefits">{% for block in section.blocks %}{% if block.type == 'benefit' %}<li {{ block.shopify_attributes }}><span aria-hidden="true">✓</span>{{ block.settings.text | escape }}</li>{% endif %}{% endfor %}</ul>
+{% if chosen != blank %}
+{% form 'product', chosen, id: form_id, class: 'product-form', data-product-form: '' %}
+{{ form.errors | default_errors }}
+{% unless chosen.has_only_default_variant %}
+<div class="option-groups js-options">{% for option in chosen.options_with_values %}<fieldset data-option-position="{{ forloop.index0 }}"><legend>{{ option.name | escape }}: <span data-option-label>{{ option.selected_value | escape }}</span></legend><div class="option-values">{% for value in option.values %}<label><input type="radio" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}><span>{{ value | escape }}</span></label>{% endfor %}</div></fieldset>{% endfor %}</div>{% endunless %}
+<label class="variant-select-label" for="Variant-{{ section.id }}">{{ 'product.variant' | t }}</label>
+<select class="variant-select" id="Variant-{{ section.id }}" name="id" data-variant-select>{% for v in chosen.variants %}<option value="{{ v.id }}" {% if v.id == variant.id %}selected{% endif %} {% unless v.available %}disabled{% endunless %}>{{ v.title | escape }} — {{ v.price | money }}{% unless v.available %} — {{ 'product.sold_out' | t }}{% endunless %}</option>{% endfor %}</select>
+<div class="buy-row"><div class="quantity"><label for="Quantity-{{ section.id }}">{{ 'product.quantity' | t }}</label><input id="Quantity-{{ section.id }}" type="number" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}" min="{{ variant.quantity_rule.min | default: 1 }}" step="{{ variant.quantity_rule.increment | default: 1 }}" {% if variant.quantity_rule.max != blank %}max="{{ variant.quantity_rule.max }}"{% endif %}></div><button type="submit" class="button" data-add {% unless variant.available %}disabled{% endunless %}>{% if variant.available %}{{ 'product.add' | t }}{% else %}{{ 'product.sold_out' | t }}{% endif %}</button></div>
+<p class="form-status" data-product-status role="status" aria-live="polite"></p>
+{% if section.settings.dynamic_checkout %}{{ form | payment_button }}{% endif %}
+{% endform %}
+{% render 'payment-icons' %}
+{% if section.settings.shipping != blank %}<p class="microcopy">{{ section.settings.shipping | escape }}</p>{% endif %}
+{% else %}<p class="editor-message">{{ 'product.select' | t }}</p>{% endif %}
+{% for block in section.blocks %}{% case block.type %}{% when 'quote' %}<blockquote class="product-quote" {{ block.shopify_attributes }}>{{ block.settings.quote | escape }}<cite>{{ block.settings.author | escape }}</cite></blockquote>{% when '@app' %}{% render block %}{% endcase %}{% endfor %}
+{% if section.settings.show_description and chosen.description != blank %}<details class="product-description"><summary>Product details</summary><div class="rte">{{ chosen.description }}</div></details>{% endif %}
+</div></div>
+{% if chosen != blank %}<script type="application/json" data-product-json>{"variants":[{% for v in chosen.variants %}{"id":{{ v.id | json }},"available":{{ v.available | json }},"options":{{ v.options | json }},"price":{{ v.price | money | json }},"compare":{{ v.compare_at_price | money | json }},"onSale":{% if v.compare_at_price > v.price %}true{% else %}false{% endif %},"media":{{ v.featured_media.id | json }},"min":{{ v.quantity_rule.min | default: 1 | json }},"step":{{ v.quantity_rule.increment | default: 1 | json }},"max":{{ v.quantity_rule.max | json }}}{% unless forloop.last %},{% endunless %}{% endfor %}]}</script>
+{% if section.settings.sticky %}<div class="sticky-buy" data-sticky-buy><div class="wrap sticky-inner"><span>{{ chosen.title | escape }}</span><span class="sticky-price" data-price>{{ variant.price | money }}</span><button class="button" type="submit" form="{{ form_id }}" data-add {% unless variant.available %}disabled{% endunless %}>{% if variant.available %}{{ 'product.add' | t }}{% else %}{{ 'product.sold_out' | t }}{% endif %}</button></div></div>{% endif %}
+{% endif %}
+</section>
+{% schema %}
+{
+  "name": "Product hero",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product for home/landing page"
+    },
+    {
+      "type": "text",
+      "id": "fallback_title",
+      "label": "Preview title",
+      "default": "Foldable Car Door Cup Holder"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Verified rating text (optional)"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Foldable"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Introduction",
+      "default": "<p>Keep your coffee close and your commute comfortable.</p>"
+    },
+    {
+      "type": "text",
+      "id": "shipping",
+      "label": "Delivery and returns text"
+    },
+    {
+      "type": "checkbox",
+      "id": "dynamic_checkout",
+      "label": "Show accelerated checkout",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Show sticky add to cart",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Designed for everyday commutes"
+        }
+      ]
+    },
+    {
+      "type": "quote",
+      "name": "Customer quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Verified quote"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product hero"
+    }
+  ]
+}
+{% endschema %}

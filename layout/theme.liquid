@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" {% if request.locale.iso_code == 'ar' %}dir="rtl"{% endif %}>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="{{ canonical_url }}">
+<title>{{ page_title | escape }}{% unless page_title contains shop.name %} — {{ shop.name | escape }}{% endunless %}</title>
+{% if page_description %}<meta name="description" content="{{ page_description | escape }}">{% endif %}
+{% if settings.favicon != blank %}<link rel="icon" href="{{ settings.favicon | image_url: width: 32 }}">{% endif %}
+{{ content_for_header }}
+<style>:root{--forest:{{ settings.forest }};--cream:{{ settings.cream }};--accent:{{ settings.accent }};--ink:{{ settings.ink }};--content:{{ settings.content_width }}px}</style>
+{{ 'theme.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'theme.js' | asset_url }}" defer></script>
+</head>
+<body class="template-{{ template.name }}">
+<a class="skip-link" href="#MainContent">{{ 'general.skip' | t }}</a>
+{% section 'header' %}
+<main id="MainContent" tabindex="-1">{{ content_for_layout }}</main>
+{% section 'footer' %}
+<div class="cart-notice" data-cart-notice hidden role="status" aria-live="polite"><span data-notice-text></span><a href="{{ routes.cart_url }}">{{ 'cart.view' | t }}</a><button type="button" data-close-notice aria-label="{{ 'general.close' | t }}">×</button></div>
+<script>window.secureCupRoutes={add:{{ routes.cart_add_url | append: '.js' | json }},cart:{{ routes.cart_url | append: '.js' | json }}};</script>
+</body></html>

@@ -1,0 +1,7 @@
+<section class="section wrap"><h1>{{ 'search.title' | t }}</h1><form action="{{ routes.search_url }}" method="get" class="search-form"><input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}" aria-label="{{ 'search.title' | t }}"><input type="hidden" name="type" value="product"><button class="button" type="submit">{{ 'search.button' | t }}</button></form>{% if search.performed %}{% paginate search.results by 24 %}<div class="product-cards">{% for result in search.results %}{% if result.object_type == 'product' %}{% render 'product-card', card_product: result %}{% endif %}{% else %}<p>{{ 'general.empty' | t }}</p>{% endfor %}</div>{{ paginate | default_pagination }}{% endpaginate %}{% endif %}</section>
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

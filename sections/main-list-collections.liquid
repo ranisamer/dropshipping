@@ -1,0 +1,7 @@
+<section class="section wrap"><h1>Collections</h1><div class="product-cards">{% for collection in collections %}<article><a href="{{ collection.url }}">{% if collection.image %}{{ collection.image | image_url: width: 800 | image_tag: loading: 'lazy' }}{% endif %}<h2>{{ collection.title | escape }}</h2></a></article>{% endfor %}</div></section>
+{% schema %}
+{
+  "name": "Collections",
+  "settings": []
+}
+{% endschema %}

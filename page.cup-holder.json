@@ -1,0 +1,236 @@
+{
+  "sections": {
+    "product": {
+      "type": "cup-product",
+      "settings": {},
+      "blocks": {
+        "0": {
+          "type": "benefit",
+          "settings": {
+            "text": "Foldable, space-saving design"
+          }
+        },
+        "1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Keep your drink within reach"
+          }
+        },
+        "2": {
+          "type": "benefit",
+          "settings": {
+            "text": "Made for your daily drive"
+          }
+        }
+      },
+      "block_order": [
+        "0",
+        "1",
+        "2"
+      ]
+    },
+    "secure": {
+      "type": "cup-image-text",
+      "settings": {
+        "heading": "Secure your coffee every morning.",
+        "dark": true
+      },
+      "blocks": {
+        "0": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Easy to fold",
+            "text": "<p>A compact design for everyday use. Add your product\u2019s folding instructions here.</p>"
+          }
+        },
+        "1": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Stable hold",
+            "text": "<p>Add the verified cup size and load limits for your product.</p>"
+          }
+        },
+        "2": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Seamless commuting",
+            "text": "<p>Keep your favorite drink close throughout your daily journey.</p>"
+          }
+        },
+        "3": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Everyday comfort",
+            "text": "<p>Add your installation and compatibility guidance.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "sidekick": {
+      "type": "cup-image-text",
+      "settings": {
+        "heading": "Sturdy sidekick for morning coffee",
+        "text": "<p>Bring a little ease to your morning routine. A simple addition to your car, ready for coffee and the road ahead.</p>",
+        "dark": false,
+        "reverse": true,
+        "cta": "Choose yours"
+      }
+    },
+    "benefits": {
+      "type": "cup-benefits",
+      "settings": {},
+      "blocks": {
+        "0": {
+          "type": "benefit",
+          "settings": {
+            "icon": "\u25ce",
+            "heading": "Easy access",
+            "text": "Keep your drink conveniently within reach."
+          }
+        },
+        "1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "\u2726",
+            "heading": "Clutter free",
+            "text": "Make space for your daily essentials."
+          }
+        },
+        "2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "\u2713",
+            "heading": "Stable hold",
+            "text": "Add verified stability details here."
+          }
+        },
+        "3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "\u2194",
+            "heading": "Find your fit",
+            "text": "Check your car and cup compatibility before ordering."
+          }
+        }
+      },
+      "block_order": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "results": {
+      "type": "cup-results",
+      "settings": {},
+      "blocks": {
+        "0": {
+          "type": "stat",
+          "settings": {
+            "value": "\u2194",
+            "label": "Compact design",
+            "text": "Fold away between journeys."
+          }
+        },
+        "1": {
+          "type": "stat",
+          "settings": {
+            "value": "\u2713",
+            "label": "Daily comfort",
+            "text": "A handy place for your drink."
+          }
+        },
+        "2": {
+          "type": "stat",
+          "settings": {
+            "value": "\u25ce",
+            "label": "Check cup size",
+            "text": "Add the supported diameter."
+          }
+        },
+        "3": {
+          "type": "stat",
+          "settings": {
+            "value": "\u2193",
+            "label": "Simple installation",
+            "text": "Add your fitting instructions."
+          }
+        }
+      },
+      "block_order": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "comparison": {
+      "type": "cup-comparison",
+      "settings": {},
+      "blocks": {
+        "0": {
+          "type": "row",
+          "settings": {
+            "feature": "Foldable design",
+            "ours": "\u2713",
+            "others": "Varies"
+          }
+        },
+        "1": {
+          "type": "row",
+          "settings": {
+            "feature": "Cup compatibility",
+            "ours": "Check dimensions",
+            "others": "Varies"
+          }
+        },
+        "2": {
+          "type": "row",
+          "settings": {
+            "feature": "Car compatibility",
+            "ours": "Check fit",
+            "others": "Varies"
+          }
+        },
+        "3": {
+          "type": "row",
+          "settings": {
+            "feature": "Installation",
+            "ours": "See instructions",
+            "others": "Varies"
+          }
+        }
+      },
+      "block_order": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ]
+    },
+    "logos": {
+      "type": "cup-logos",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "cup-reviews",
+      "settings": {}
+    }
+  },
+  "order": [
+    "product",
+    "secure",
+    "sidekick",
+    "benefits",
+    "results",
+    "comparison",
+    "logos",
+    "reviews"
+  ]
+}
